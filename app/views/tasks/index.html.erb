@@ -1,0 +1,36 @@
+<h1 class="text-2xl font-bold text-center my-4">Task Manager</h1>
+
+<div class="flex justify-center mb-4 space-x-4">
+  <%= link_to "New Task", new_task_path, class: "px-4 py-2 bg-blue-500 text-white rounded-md" %>
+  <%= link_to "All", tasks_path, class: "px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400" %>
+  <%= link_to "Completed", tasks_path(status: "completed"), class: "px-4 py-2 bg-green-500 text-white rounded border-2 border-green-600 hover:bg-green-600" %>
+  <%= link_to "Pending", tasks_path(status: "pending"), class: "px-4 py-2 bg-red-500 text-white rounded" %>
+</div>
+
+<div class="max-w-4xl mx-auto">
+  <table class="w-full border-collapse border border-gray-300">
+    <thead>
+      <tr class="bg-gray-200">
+        <th class="border px-4 py-2">Title</th>
+        <th class="border px-4 py-2">Due Date</th>
+        <th class="border px-4 py-2">Status</th>
+        <th class="border px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr class="<%= task.completed ? 'bg-green-100' : 'bg-red-100' %>">
+          <td class="border px-4 py-2"><%= task.title %></td>
+          <td class="border px-4 py-2"><%= task.due_date %></td>
+          <td class="border px-4 py-2"><%= task.completed ? 'Completed' : 'Pending' %></td>
+          <td class="border px-4 py-2">
+            <div class="space-x-2">
+              <%= link_to "Edit", edit_task_path(task), class: "px-4 py-2 bg-yellow-500 text-white rounded-md" %>
+              <%= link_to "Delete", task_path(task), method: :delete, data: { confirm: "Are you sure?" }, class: "px-4 py-2 bg-red-500 text-white rounded-md" %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
